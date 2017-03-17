@@ -1,4 +1,4 @@
-var LastSwipe = null;
+var lastSwipe = null;
 var leapInfo = null;
 var leapBridge = null;
 var isServerConnected = null;
@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 function init()
 {
-	LastSwipe = new Date();
+	lastSwipe = new Date();
 
 	leapInfo = this.leapInfo = document.getElementById('leapInfo');
 	isServerConnected = false;
@@ -105,13 +105,13 @@ function onFrame(frame)
 			if (velocityX > 1000 && hand.palmNormal[0] > 0.2)
             {
             	console.log("left to right");
-                LastSwipe = new Date();
+                lastSwipe = new Date();
                 player.flyToPreviousStep();
             }
             else if (velocityX < -1000 && hand.palmNormal[0] < -0.2)
             {
             	console.log("right to left");
-                LastSwipe = new Date();
+                lastSwipe = new Date();
                 player.flyToNextStep();
             }
     	}
@@ -121,7 +121,7 @@ function onFrame(frame)
 function canDoGesture()
 {
 	var now = new Date();
-	var diff = now.getTime() - LastSwipe.getTime();
+	var diff = now.getTime() - lastSwipe.getTime();
 
 	var days = Math.floor(diff / (1000 * 60 * 60 * 24));
 	diff -=  days * (1000 * 60 * 60 * 24);
