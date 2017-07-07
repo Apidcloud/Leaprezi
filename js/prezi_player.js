@@ -34,7 +34,7 @@
             try {
                 message = JSON.parse(event.data);
             } catch (e) {}
-            if (message.id && (player = PreziPlayer.players[message.id])){
+            if (message && message.id && (player = PreziPlayer.players[message.id])){
                 if (player.options.debug === true) {
                     if (console && console.log) console.log('received', message);
                 }
@@ -74,7 +74,7 @@
             this.iframe = document.createElement('iframe');
             params = [
                 { name: 'oid', value: options.preziId },
-                { name: 'explorable', value: options.explorable ? 1 : 0 },
+                { name: 'explorable', value: 1 }, // disabling exploration is not supported yet
                 { name: 'controls', value: options.controls ? 1 : 0 }
             ];
             for(var i=0; i<params.length; i++) {
@@ -174,7 +174,7 @@
             // jump to the step
             return this.sendMessage({
                 'action': 'present',
-                'data': ['moveToStep', step]
+                'data': ['moveToStep', Number(step)]
             });
         };
 
